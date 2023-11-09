@@ -16,7 +16,7 @@ from shapely.geometry import LinearRing
 from shapely.plotting import plot_line, plot_points
 from mpl_toolkits.mplot3d import Axes3D
 
-def plot(nodes, robot_pose, obstacle_poly, goal1_poly, plot_no=0,path=0,path_present=False,two_paths=False,sigma_separate=[]):
+def plot(nodes, obstacle_poly, goal1_poly, path=0, path_present=False, two_paths=False, sigma_separate=[]):
     '''
     FUnction to plot the nodes, trajectoris, the path and the robot motions
 
@@ -94,12 +94,12 @@ def plot(nodes, robot_pose, obstacle_poly, goal1_poly, plot_no=0,path=0,path_pre
             ax.plot(points_x, points_y, points_z, color='green', linewidth=2)
             ax.scatter(points_x[0], points_y[0], points_z[0], color='purple', s=30, zorder=0)
 
-    #goal1_x, goal1_y, goal1_z = zip(*goal1_poly.exterior.coords)
-    #ax.plot(goal1_x, goal1_y, goal1_z, color='green', linewidth=2)
+    goal1_x, goal1_y, goal1_z = zip(*goal1_poly.exterior.coords)
+    ax.plot(goal1_x, goal1_y, goal1_z, color='green', linewidth=2)
     ax.add_collection3d(Poly3DCollection(obstacle_poly, facecolors='yellow', linewidths=1, edgecolors='black', alpha=0.3))
     
     plt.show()
-    plt.savefig('Plots_map1/Fig'+str(plot_no))
+    plt.savefig('Plots_map1/Fig'+str(0))
     
 ##################################################################################################################
 '''
@@ -595,7 +595,7 @@ else:
     print('path not found')
 path.reverse()
 rrt.nodes = rrt.nodes[0:rrt.nodes_num,:]
-plot(rrt.nodes, Point((0,0,0)), obstacle_poly, goal1_poly, path, True)
+plot(rrt.nodes, obstacle_poly, goal1_poly, path, path_present= True)
 replan = Replan()
  
 # Function calls. Please run only one of them at a time. Wheb running one, comment out the other two calls
